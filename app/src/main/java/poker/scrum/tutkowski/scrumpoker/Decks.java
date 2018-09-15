@@ -9,10 +9,20 @@ import java.util.List;
 import java.util.Map;
 
 public class Decks {
+    /**
+     * Get the default deck
+     * @param content
+     * @return
+     */
     public static Deck getDefaultDeck(Context content) {
         return buildRedboothDeck(content);
     }
 
+    /**
+     * Get all of the available decks
+     * @param content
+     * @return
+     */
     public static Map<String, Deck> getAllDecks(Context content) {
         HashMap<String, Deck> decks = new HashMap<>();
 
@@ -20,6 +30,19 @@ public class Decks {
         decks.put(redboothDeck.getDeckName(), redboothDeck);
 
         return decks;
+    }
+
+    /**
+     * Get the requested deck or the default deck if not found.
+     * @param context Activity context
+     * @param desiredDeckName Desired deck
+     * @return Desired deck or default deck if not found
+     */
+    public static Deck getDeck(Context context, String desiredDeckName) {
+        Map<String, Deck> decks = Decks.getAllDecks(context);
+        return decks.containsKey(desiredDeckName)
+                ? decks.get(desiredDeckName)
+                : Decks.getDefaultDeck(context);
     }
 
     @NonNull

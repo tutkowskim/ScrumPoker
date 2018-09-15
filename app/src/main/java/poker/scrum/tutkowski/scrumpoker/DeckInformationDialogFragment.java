@@ -1,5 +1,6 @@
 package poker.scrum.tutkowski.scrumpoker;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,14 +11,13 @@ import android.view.View;
 import android.widget.TextView;
 
 public class DeckInformationDialogFragment extends DialogFragment {
-    private Deck deck;
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Activity activity = getActivity();
+        String deckName = activity.getIntent().getStringExtra(MainActivity.MESSAGE_DECK_NAME);
+        Deck deck = Decks.getDeck(activity, deckName);
+
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.deck_information_dialog_fragment, null);
@@ -44,5 +44,4 @@ public class DeckInformationDialogFragment extends DialogFragment {
         builder.setCancelable(true);
         return builder.create();
     }
-
 }

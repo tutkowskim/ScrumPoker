@@ -12,8 +12,6 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity {
     public final static String MESSAGE_DECK_NAME = "poker.scrum.tutkowski.scrumpoker.MainActivity.DECK_NAME";
 
@@ -24,17 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String desiredDeckName = intent.hasExtra(MESSAGE_DECK_NAME) ? intent.getStringExtra(MESSAGE_DECK_NAME) : "";
-        Map<String, Deck> decks = Decks.getAllDecks(this);
-        final Deck deck = decks.containsKey(desiredDeckName)
-                ? decks.get(desiredDeckName)
-                : Decks.getDefaultDeck(this);
+        final Deck deck = Decks.getDeck(this, desiredDeckName);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DeckInformationDialogFragment deckInformationDialogFragment = new DeckInformationDialogFragment();
-                deckInformationDialogFragment.setDeck(deck);
                 deckInformationDialogFragment.show(getSupportFragmentManager(), deck.getDeckName());
             }
         });
