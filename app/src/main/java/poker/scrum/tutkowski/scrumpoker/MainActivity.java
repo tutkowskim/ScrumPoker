@@ -24,12 +24,39 @@ public class MainActivity extends AppCompatActivity {
         String desiredDeckName = intent.hasExtra(MESSAGE_DECK_NAME) ? intent.getStringExtra(MESSAGE_DECK_NAME) : "";
         final Deck deck = Decks.getDeck(this, desiredDeckName);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabActivateFabs = findViewById(R.id.fabActivateFabs);
+        fabActivateFabs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFloatingActionItems(true);
+            }
+        });
+
+        FloatingActionButton fabDeactivateFabs = findViewById(R.id.fabDeactivateFabs);
+        fabDeactivateFabs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFloatingActionItems(false);
+            }
+        });
+
+        FloatingActionButton fabShowDeckInfo = findViewById(R.id.fabShowDeckInfo);
+        fabShowDeckInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DeckInformationDialogFragment deckInformationDialogFragment = new DeckInformationDialogFragment();
                 deckInformationDialogFragment.show(getSupportFragmentManager(), deck.getDeckName());
+                showFloatingActionItems(false);
+            }
+        });
+
+        FloatingActionButton fabChangeDeck = findViewById(R.id.fabChangeDeck);
+        fabChangeDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChangeDeckDialogFragment deckInformationDialogFragment = new ChangeDeckDialogFragment();
+                deckInformationDialogFragment.show(getSupportFragmentManager(), deck.getDeckName());
+                showFloatingActionItems(false);
             }
         });
 
@@ -41,5 +68,10 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(flexboxLayoutManager);
         recyclerView.setAdapter(new CardAdapter(deck.getDeckCards()));
+    }
+
+    private void showFloatingActionItems(boolean show) {
+        findViewById(R.id.passiveFabItems).setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+        findViewById(R.id.activeFabItems).setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 }
