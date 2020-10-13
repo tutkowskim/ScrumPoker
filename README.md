@@ -3,9 +3,11 @@ A light weight scrum poker planning application.
 
 <img src="../master/readmeImages/deck_view.png?raw=true" height="480" width="270"> <img src="../master/readmeImages/card_view.png?raw=true" height="480" width="270">
 
-
 ## Motivation
 The ScrumPoker app that I had been using started to slow down with un-needed animations and ads, so I decided to create my own.
+
+## Download it now
+https://play.google.com/store/apps/details?id=poker.scrum.tutkowski.scrumpoker
 
 ## Decks
 ### Redbooth Deck
